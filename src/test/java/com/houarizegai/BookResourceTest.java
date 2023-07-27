@@ -41,6 +41,8 @@ class BookResourceTest {
                 .then()
                 .statusCode(200)
                 .body("title", is("Clean Architecture"))
-                .body("price", is(35.5F));
+                .body("price", is(35.5F))
+                .body("category", is("IT"))
+        ;
     }
 }

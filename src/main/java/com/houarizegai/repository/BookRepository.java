@@ -3,6 +3,7 @@ package com.houarizegai.repository;
 import com.houarizegai.dto.Book;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
 import java.util.List;
@@ -14,10 +15,15 @@ public class BookRepository {
     @Inject
     Logger logger;
 
-    private List<Book> books = List.of(
-            new Book(1, "Clean Architecture", 35.5),
-            new Book(2, "Clean Code", 25.5)
-    );
+    private final List<Book> books;
+
+    public BookRepository(@ConfigProperty(name = "books.category", defaultValue = "History") String category) {
+        books = List.of(
+                new Book(1, "Clean Architecture", 35.5, category),
+                new Book(2, "Clean Code", 25.5, "Science")
+        );
+    }
+
 
     public List<Book> getBooks() {
         logger.info("Get all books");
